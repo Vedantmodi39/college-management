@@ -16,12 +16,7 @@ public class Student {
 	private String departmentName;
 	private Long studentContact;
 	
-	
-	
-	
-	
-	
-	
+//getter setter methods and Constructors	
 	public Student() {
 		super();
 	}
@@ -62,13 +57,5 @@ public class Student {
 	}
 	public void setStudentContact(Long studentContact) {
 		this.studentContact = studentContact;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

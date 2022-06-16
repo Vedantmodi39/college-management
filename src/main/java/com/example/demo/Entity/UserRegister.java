@@ -13,9 +13,9 @@ public class UserRegister {
 	private int id;
 	private  String username;
 	private String password;
-	private String role;
+	private String role;	
 	
-	
+//getter setter methods and Constructors
 	
 	public int getId() {
 		return id;
@@ -51,14 +51,4 @@ public class UserRegister {
 	public UserRegister() {
 		super();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
