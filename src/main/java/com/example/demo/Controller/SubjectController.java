@@ -18,12 +18,12 @@ public class SubjectController {
 	@Autowired
 	SubjectServices subjectServices;
 	
-	@PostMapping("/subject")
+	@PostMapping("/save-subject")
 	public List<Subject> saveSubject(@RequestBody List<Subject> subject) {
 		return subjectServices.saveSubject(subject);	
 	}
 	
-	@GetMapping("/getSubject")
+	@GetMapping("/get-subject")
 	public List<Subject> getSubject() {	
 		return subjectServices.getSubject();		
 	}

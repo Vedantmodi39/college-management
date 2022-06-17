@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Entity.Student;
 import com.example.demo.Entity.Subject;
+import com.example.demo.Exception.DepartmentNotExist;
+import com.example.demo.Exception.StudentNameNotExist;
 import com.example.demo.Services.StudentServices;
 
 @RestController
@@ -20,23 +22,23 @@ public class StudentController {
 	@Autowired
 	StudentServices studentServices;
 	
-	@PostMapping("/student")
+	@PostMapping("/save-student")
 	public Student saveStudent(@RequestBody Student student) {	
 		return studentServices.saveStudent(student);		
 	}
 	
-	@GetMapping("/getStudent")
+	@GetMapping("/get-student")
 	public List<Student> getStudent() {
 		return studentServices.getStudent();
 	}
 	
-	@GetMapping("/getStudentByDepartment/{departmentName}")
-	public ResponseEntity<List<Student>>  getStudentByDepartment(@PathVariable("departmentName") String department){
+	@GetMapping("/get-student-by-department/{departmentName}")
+	public ResponseEntity<List<Student>>  getStudentByDepartment(@PathVariable("departmentName") String department) throws DepartmentNotExist{
 		return studentServices.getStudentByDepartment(department);	
 	}
 	
-	@GetMapping("/getDataByStudentName/{studentName}")
-	public List<Subject> getDataByStudentName(@PathVariable("studentName") String studentName){
+	@GetMapping("/get-data-by-studentname/{studentName}")
+	public List<Subject> getDataByStudentName(@PathVariable("studentName") String studentName) throws StudentNameNotExist{
 	   return studentServices.getDataByStudentName(studentName);  
 	}
 

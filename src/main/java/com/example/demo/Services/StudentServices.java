@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.demo.Entity.Student;
 import com.example.demo.Entity.Subject;
+import com.example.demo.Exception.DepartmentNotExist;
+import com.example.demo.Exception.StudentNameNotExist;
 import com.example.demo.Repository.DepartmentRepository;
 import com.example.demo.Repository.StudentRepository;
 
@@ -22,29 +24,45 @@ public class StudentServices {
 	@Autowired
 	StudentRepository studentRepository;
 
-	public List<Subject> getDataByStudentName(String studentName) {
-
+	public List<Subject> getDataByStudentName(String studentName) throws  StudentNameNotExist {
+		
 		List<Subject> subList = new ArrayList<>();
-		Student stud = studentRepository.findByStudentName(studentName);
-		List<String> list = studentRepository.getDataByStudentName(stud.getDepartmentName(), stud.getSemester());
-		Iterator<String> iterator = list.iterator();
+		
+		if(studentRepository.existsByStudentName(studentName))
+		{
+			
+			Student stud = studentRepository.findByStudentName(studentName);
+			List<String> list = studentRepository.getDataByStudentName(stud.getDepartmentName(), stud.getSemester());
+			Iterator<String> iterator = list.iterator();
 
-		while (iterator.hasNext()) {
+			while (iterator.hasNext()) {
 
-			String s = iterator.next();
-			String[] arr = s.split(",");
-			Subject sub = new Subject();
+				String s = iterator.next();
+				String[] arr = s.split(",");
+				Subject sub = new Subject();
 
-			sub.setSubjectId(Integer.parseInt(arr[0]));
-			sub.setSemester(Integer.parseInt(arr[1]));
-			sub.setSubjectName(arr[2]);
-			subList.add(sub);
+				sub.setSubjectId(Integer.parseInt(arr[0]));
+				sub.setSemester(Integer.parseInt(arr[1]));
+				sub.setSubjectName(arr[2]);
+				subList.add(sub);
+				return subList;
+		}
+	}
+		
+		else {
+				throw new StudentNameNotExist();
+			
+			}
+		return subList;
+				
+
+		
 		}
 
-		return subList;
-	}
+		
+	
 
-	public ResponseEntity<List<Student>> getStudentByDepartment(String department) {
+	public ResponseEntity<List<Student>> getStudentByDepartment(String department) throws DepartmentNotExist {
 		
 		if(departmentRepository.existsByName(department))
 		{
@@ -53,7 +71,7 @@ public class StudentServices {
 		}
 		else
 		{
-			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+	        throw new DepartmentNotExist();
 		}
 	
 		

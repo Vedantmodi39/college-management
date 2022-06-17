@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Entity.Department;
 import com.example.demo.Entity.Subject;
+import com.example.demo.Exception.DepartmentAlreadyExist;
+import com.example.demo.Exception.DepartmentNotExist;
 import com.example.demo.Services.DepartmentService;
 
 @RestController
@@ -20,24 +22,24 @@ public class DepartmentController {
 	@Autowired
 	DepartmentService departmentService;
 
-	@PostMapping("/department")
-	public ResponseEntity<Department> saveDepartment(@RequestBody Department department) {
+	@PostMapping("/save-department")
+	public Department saveDepartment(@RequestBody Department department) throws DepartmentAlreadyExist {
 		return departmentService.saveDepartment(department);
 	}
 	
-	@GetMapping("/getDepartment")
+	@GetMapping("/get-department")
 	public List<Department> getDepartment() {
 		return departmentService.getDepartment();	
 	}
 	
-	@GetMapping("/getDataByDepartment/{DepartmentName}")
-	public  ResponseEntity<List<Subject>>  getDataByDepartment(@PathVariable("DepartmentName") String DepartmentName ) {	
-		return departmentService.getDataByDepartment(DepartmentName);	
+	@GetMapping("/get-data-by-department/{departmentName}")
+	public  ResponseEntity<List<Subject>>  getDataByDepartment(@PathVariable("departmentName") String departmentName ) throws DepartmentNotExist {	
+		return departmentService.getDataByDepartment(departmentName);	
 	}
 	
-	@GetMapping("/getDataByDepartmentAndSem/{DepartmentName}/{semester}")
-	public List<Subject>  getDataByDepartmentAndSem(@PathVariable("DepartmentName") String DepartmentName ,@PathVariable("semester") int semester) {
-		return departmentService.getDataByDepartmentAndSem(DepartmentName,semester);		
+	@GetMapping("/ge-data-by-department-and-sem/{departmentName}/{semester}")
+	public List<Subject>  getDataByDepartmentAndSem(@PathVariable("departmentName") String departmentName ,@PathVariable("semester") int semester) {
+		return departmentService.getDataByDepartmentAndSem(departmentName,semester);		
 	}
 	
 }

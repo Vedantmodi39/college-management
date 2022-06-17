@@ -22,4 +22,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 		return false;
 	}
 
+	boolean existsByStudentName(String studentName);
+
 }
