@@ -14,7 +14,6 @@ import com.example.demo.Exception.StudentNameNotExist;
 import com.example.demo.Repository.DepartmentRepository;
 import com.example.demo.Repository.StudentRepository;
 
-
 @Service
 public class StudentServices {
 
@@ -24,14 +23,14 @@ public class StudentServices {
 	@Autowired
 	StudentRepository studentRepository;
 
-	public List<Subject> getDataByStudentName(String studentName) throws  StudentNameNotExist {
-		
+	public List<Subject> getDataByStudentName(String studentName) throws StudentNameNotExist {
+
 		List<Subject> subList = new ArrayList<>();
-		
-		if(studentRepository.existsByStudentName(studentName))
-		{
-			
+
+		if (studentRepository.existsByStudentName(studentName)) {
+
 			Student stud = studentRepository.findByStudentName(studentName);
+		
 			List<String> list = studentRepository.getDataByStudentName(stud.getDepartmentName(), stud.getSemester());
 			Iterator<String> iterator = list.iterator();
 
@@ -42,39 +41,33 @@ public class StudentServices {
 				Subject sub = new Subject();
 
 				sub.setSubjectId(Integer.parseInt(arr[0]));
-				sub.setSemester(Integer.parseInt(arr[1]));
 				sub.setSubjectName(arr[2]);
-				subList.add(sub);
-				return subList;
-		}
-	}
-		
-		else {
-				throw new StudentNameNotExist();
-			
-			}
-		return subList;
+				sub.setSemester(Integer.parseInt(arr[1]));
 				
-
-		
+				subList.add(sub);
+				
+			}
+			
 		}
 
-		
-	
+		else 
+		{
+			throw new StudentNameNotExist();
+
+		}
+		return subList;
+
+	}
 
 	public ResponseEntity<List<Student>> getStudentByDepartment(String department) throws DepartmentNotExist {
-		
-		if(departmentRepository.existsByName(department))
-		{
-			return new ResponseEntity<List<Student>>(studentRepository.findByDepartmentName(department),HttpStatus.OK);
 
+		if (departmentRepository.existsByName(department)) {
+			return new ResponseEntity<List<Student>>(studentRepository.findByDepartmentName(department), HttpStatus.OK);
+
+		} else {
+			throw new DepartmentNotExist();
 		}
-		else
-		{
-	        throw new DepartmentNotExist();
-		}
-	
-		
+
 	}
 
 	public List<Student> getStudent() {

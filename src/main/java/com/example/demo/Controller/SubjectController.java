@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Entity.Subject;
+import com.example.demo.Exception.SubjectAlredyExist;
 import com.example.demo.Services.SubjectServices;
 
 
@@ -18,8 +19,8 @@ public class SubjectController {
 	@Autowired
 	SubjectServices subjectServices;
 	
-	@PostMapping("/save-subject")
-	public List<Subject> saveSubject(@RequestBody List<Subject> subject) {
+	@PostMapping("/save-subject") 
+	public List<Subject> saveSubject(@RequestBody List<Subject> subject) throws SubjectAlredyExist {
 		return subjectServices.saveSubject(subject);	
 	}
 	

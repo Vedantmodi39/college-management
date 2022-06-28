@@ -14,6 +14,9 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 	@Query(value = "select * from subject where subject_id IN (select sub_id from sub_dept_mapping where dept_id =(select id from department where name=?1 ));", nativeQuery = true)
 	List<String> getDataByDepartment(String departmentName);
 	
+	@Query(value = "select * from subject where subject_id IN (select sub_id from sub_dept_mapping where dept_id =(select id from department where name=?1 ));", nativeQuery = true)
+	List<String> getDataByDepartment1(String departmentName);
+	
     @Query(value = "select * from subject where subject_id IN (select sub_id from sub_dept_mapping where dept_id =(select id from department where name=?1 )and semester = ?2);",nativeQuery = true)
 	List<String> getDataByDepartmentAndSem(String departmentName, int semester);
 

@@ -13,6 +13,7 @@ import com.example.demo.Entity.Department;
 import com.example.demo.Entity.Subject;
 import com.example.demo.Exception.DepartmentAlreadyExist;
 import com.example.demo.Exception.DepartmentNotExist;
+import com.example.demo.Repository.DepartmentRepository;
 import com.example.demo.Services.DepartmentService;
 
 @RestController
@@ -21,6 +22,9 @@ public class DepartmentController {
 	
 	@Autowired
 	DepartmentService departmentService;
+	
+	@Autowired
+	DepartmentRepository departmentRepository;
 
 	@PostMapping("/save-department")
 	public Department saveDepartment(@RequestBody Department department) throws DepartmentAlreadyExist {
@@ -37,7 +41,16 @@ public class DepartmentController {
 		return departmentService.getDataByDepartment(departmentName);	
 	}
 	
-	@GetMapping("/ge-data-by-department-and-sem/{departmentName}/{semester}")
+	
+	
+	@GetMapping("/get-data-by-department1/{departmentName}")
+	public  List<String> getDataByDepartment1(@PathVariable("departmentName") String departmentName ) throws DepartmentNotExist {	
+		return departmentRepository.getDataByDepartment1(departmentName);
+	}
+	
+	
+	
+	@GetMapping("/get-data-by-department-and-sem/{departmentName}/{semester}")
 	public List<Subject>  getDataByDepartmentAndSem(@PathVariable("departmentName") String departmentName ,@PathVariable("semester") int semester) {
 		return departmentService.getDataByDepartmentAndSem(departmentName,semester);		
 	}

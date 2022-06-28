@@ -9,21 +9,21 @@ import com.example.demo.Repository.UserRegisterRepository;
 @Service
 public class RegisterService {
 	
-	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;
+//	@Autowired
+//	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	UserRegisterRepository userLoginRepository;
 	
 	public UserRegister userLogin(UserRegister userRegister) {
 		userRegister.setRole("User");	
-		userRegister.setPassword( bCryptPasswordEncoder.encode(userRegister.getPassword()));
+	  // userRegister.setPassword( bCryptPasswordEncoder.encode(userRegister.getPassword()));
 		return userLoginRepository.save(userRegister);
 	}
 	
 	public UserRegister adminLogin(UserRegister userRegister) {
 		userRegister.setRole("Admin");
-		userRegister.setPassword( bCryptPasswordEncoder.encode(userRegister.getPassword() ) );
+		//userRegister.setPassword( bCryptPasswordEncoder.encode(userRegister.getPassword() ) );
 		return userLoginRepository.save(userRegister);
 	}
 }

@@ -25,5 +25,11 @@ public class ExceptionController {
 	{
 		return new ResponseEntity<>("Student name not exist",HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(value = SubjectAlredyExist.class)
+	public ResponseEntity<Object>  SubjectAlredyExist(SubjectAlredyExist exception)
+	{
+		return new ResponseEntity<>("Subject name not exist",HttpStatus.BAD_REQUEST);
+	}
 
 }

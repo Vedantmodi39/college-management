@@ -75,7 +75,6 @@ public class DepartmentService {
 			//return new ResponseEntity<>( null,HttpStatus.BAD_REQUEST); 
 			throw new DepartmentNotExist();
 		}
-		
 
 	}
 
@@ -85,18 +84,22 @@ public class DepartmentService {
 
 	
 	public List<Subject> stringToJson(List<String> list) {
+		System.out.println(" json list strng"+list);
 		List<Subject> subList = new ArrayList<>();
 		Iterator<String> it = list.iterator();
 
 		while (it.hasNext()) {
 			String s = it.next();
 			String[] arr = s.split(",");
+			System.out.println("list string array"+arr[0]);
 			Subject sub = new Subject();
 
 			sub.setSubjectId(Integer.parseInt(arr[0]));
-			sub.setSemester(Integer.parseInt(arr[1]));
-			sub.setSubjectName(arr[2]);
+			sub.setSubjectName(arr[1]);
+			sub.setSemester(Integer.parseInt(arr[2]));
 			subList.add(sub);
+			
+			System.out.println("after itreatiopn"+ subList);
 		}
 		return subList;
 	}
